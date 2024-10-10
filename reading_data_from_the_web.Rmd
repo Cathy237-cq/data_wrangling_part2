@@ -1,0 +1,51 @@
+---
+title: "data_wrangling_part2"
+author: "cathy"
+date: "2024-10-10"
+output: github_document
+---
+load the package need for this one
+```{r}
+library(tidyverse)
+library(rvest)
+library(httr)
+```
+
+now the data has been imported
+```{r}
+ url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+
+ drug_use_html = read_html(url)
+```
+
+
+Get the pieces i actually need.
+```{r}
+  marj_use_df =
+    drug_use_html |> 
+    html_table() |> 
+    first() |> 
+    slice(-1)
+```
+
+Learning assessment
+
+```{r}
+ url = "https://www.bestplaces.net/cost_of_living/city/new_york/new_york"
+ cost_living_html = read_html(url)
+ 
+ cost_living_df = 
+   cost_living_html |> 
+   html_table()
+```
+
+also can be combine to one step
+```{r}
+ cost_living_df = 
+    read_html("https://www.bestplaces.net/cost_of_living/city/new_york/new_york") |> 
+   html_table() |> 
+   first() # make first row the name
+```
+
+
+
