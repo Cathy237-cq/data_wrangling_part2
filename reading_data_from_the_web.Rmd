@@ -48,4 +48,62 @@ also can be combine to one step
 ```
 
 
+## CSS Selectors!!
+```{r}
+ swm_url = "https://www.imdb.com/list/ls070150896/"
+
+ swm_html = read_html(swm_url)
+```
+
+```{r}
+swm_title_vec = 
+ swm_html |> 
+  html_elements(".ipc-title-link-wrapper.ipc-title__text") |> 
+  html_text()
+
+swm_runtime_vec = 
+ swm_html |> 
+  html_elements(".dli-title-metadata-item:nth-child(2)") |> 
+  html_text()
+ 
+ swm_score_vec = 
+  swm_html |> 
+  html_elements(".ipc-rating-star--rating") |> 
+  html_text()
+```
+
+## Use API
+
+get water data
+```{r}
+ nyc_water = 
+   GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") |> 
+   content() # show as a table
+```
+
+
+Get BRFSS data
+
+```{r}
+ BRFSS_df = 
+  GET("https://chronicdata.cdc.gov/resource/acme-vg9e.csv",
+      query = list("$limit" = 5000)) |>  # increase the row to 5000, or it will only have 1000
+ content()
+```
+
+
+Pokemon API
+
+```{r}
+ pokemon = 
+  GET("https://pokeapi.co/api/v2/pokemon/ditto") |> 
+  content()
+```
+
+```{r}
+pokemon$height
+pokemon$abilities
+```
+
+
 
