@@ -1,0 +1,146 @@
+---
+title: "strings and factors"
+output: github_document
+---
+```{r, include = FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+
+load the package need for this one
+```{r}
+library(rvest)
+```
+
+
+## Let's do strings
+
+```{r}
+string_vec = c("my", "name", "is", "cathy")
+
+str_detect(string_vec, "cathy") # need to have percice match, upper case and lower case
+
+str_replace(string_vec, "cathy", "Cahty")
+
+str_replace(string_vec, "a", "A")
+```
+
+
+```{r}
+string_vec = c(
+  "i think we all rule for participating",
+  "i think i have been caught",
+  "i think this will be quite fun actually",
+  "it will be fun, i think"
+  )
+
+str_detect(string_vec, "i think")
+str_detect(string_vec, "^i think") # ^ beginning of the line  with "i think"
+str_detect(string_vec, "^i think$")  # $ end with "i think"
+
+
+```
+
+```{r}
+string_vec = c(
+  "Time for a Pumpkin Spice Latte!",
+  "went to the #pumpkinpatch last weekend",
+  "Pumpkin Pie is obviously the best pie",
+  "SMASHING PUMPKINS -- LIVE IN CONCERT!!"
+  )
+
+str_detect(string_vec,"pumpkin")
+
+str_detect(string_vec,"Pumpkin")
+
+str_detect(string_vec,"[Pp]umpkin") # can find 2 types of P and p 
+```
+
+
+```{r}
+string_vec = c(
+  '7th inning stretch',
+  '1st half soon to begin. Texas won the toss.',
+  'she is 5 feet 4 inches tall',
+  '3AM - cant sleep :('
+  )
+
+str_detect(string_vec, "[0-9]")
+
+
+str_detect(string_vec, "[0-9][a-z]")
+
+str_detect(string_vec, "^[0-9][a-zA-Z]")
+```
+
+
+
+```{r}
+string_vec = c(
+  'Its 7:11 in the evening',
+  'want to go to 7-11?',
+  'my flight is AA711',
+  'NetBios: scanning ip 203.167.114.66'
+  )
+
+str_detect(string_vec, "7.11") # "." means everything
+```
+
+
+how thing start get real strange
+
+```{r}
+string_vec = c(
+  'The CI is [2, 5]',
+  ':-]',
+  ':-[',
+  'I found the answer on pages [6-7]'
+  )
+
+str_detect(string_vec, "\\[")
+```
+
+
+
+## Factors ...
+
+```{r}
+sex_vec = factor(c("male","male","female","female"))
+
+as.numeric(sex_vec)
+```
+
+
+do some releveling
+```{r}
+sex_vec = fct_relevel(sex_vec, "male") # put male first
+
+as.numeric(sex_vec)
+```
+
+
+
+
+
+
+
+
+
